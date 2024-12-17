@@ -1,5 +1,5 @@
-import { describe, expect, it, vi } from "vitest";
-import { chatbotConsole, cleanUpInput } from ".";
+import { describe, expect, it, vi } from 'vitest';
+import { chatbotConsole, cleanUpInput } from '.';
 
 describe('cleanUpInput function', () => {
   it('should convert input to lowercase', () => {
@@ -67,11 +67,11 @@ describe('chatbotConsole function', () => {
   it('should log the response to console', () => {
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     const response = 'Chatbot: Hello!';
-    
+
     chatbotConsole(response);
-    
+
     expect(consoleSpy).toHaveBeenCalledWith(response);
-    
+
     consoleSpy.mockRestore();
   });
 });

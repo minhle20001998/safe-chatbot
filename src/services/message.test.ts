@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { handleUserMessage } from "./message";
-import { userID, userMessage } from "../constants/test";
-import { CHATBOT_MESSAGES } from "../constants";
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { handleUserMessage } from './message';
+import { userID, userMessage } from '../constants/test';
+import { CHATBOT_MESSAGES } from '../constants';
 
 const mockState = vi.hoisted(() => {
   return {
@@ -9,36 +9,36 @@ const mockState = vi.hoisted(() => {
     logChatbotResponseMock: vi.fn(),
     logUserMessageMock: vi.fn(),
     isInputAllowedMock: vi.fn(),
-    isInputOffensiveMock: vi.fn()
-  }
-})
+    isInputOffensiveMock: vi.fn(),
+  };
+});
 
 vi.mock('readline/promises');
 
 vi.mock('../configs/logger', () => {
   return {
     logChatbotResponse: mockState.logChatbotResponseMock,
-    logUserMessage: mockState.logUserMessageMock
-  }
-})
+    logUserMessage: mockState.logUserMessageMock,
+  };
+});
 
 vi.mock('./verifier', () => {
   return {
     isInputAllowed: mockState.isInputAllowedMock,
-    isInputOffensive: mockState.isInputOffensiveMock
-  }
-})
+    isInputOffensive: mockState.isInputOffensiveMock,
+  };
+});
 
 vi.mock('../helper', () => {
   return {
-    chatbotConsole: mockState.chatbotConsoleMock
-  }
+    chatbotConsole: mockState.chatbotConsoleMock,
+  };
 });
 
 describe('Handle User Message', () => {
   beforeEach(() => {
-    vi.resetAllMocks()
-  })
+    vi.resetAllMocks();
+  });
 
   it('should log user input and respond with a verified message for valid input', () => {
     const userMessageHandler = handleUserMessage(userID[0]);
@@ -51,10 +51,10 @@ describe('Handle User Message', () => {
     expect(mockState.logUserMessageMock).toHaveBeenCalledWith(userID[0], userMessage.valid[0]);
 
     // Validate chatbot's response
-    const response = `${CHATBOT_MESSAGES.VERIFIED_MESSAGE_RESPONSE}${userMessage.valid[0]}`
+    const response = `${CHATBOT_MESSAGES.VERIFIED_MESSAGE_RESPONSE}${userMessage.valid[0]}`;
     expect(mockState.logChatbotResponseMock).toHaveBeenCalledWith(userID[0], response);
-    expect(mockState.chatbotConsoleMock).toHaveBeenCalledWith(response)
-  })
+    expect(mockState.chatbotConsoleMock).toHaveBeenCalledWith(response);
+  });
 
   it('should respond with an unverified message for input that fails the allowed content check', () => {
     const userMessageHandler = handleUserMessage(userID[0]);
@@ -68,10 +68,10 @@ describe('Handle User Message', () => {
     expect(mockState.logUserMessageMock).toHaveBeenCalledWith(userID[0], userMessage.invalid[0]);
 
     // Validate chatbot's response
-    const response = `${CHATBOT_MESSAGES.UNVERIFED_MESSAGE_RESPONSE}`
+    const response = `${CHATBOT_MESSAGES.UNVERIFED_MESSAGE_RESPONSE}`;
     expect(mockState.logChatbotResponseMock).toHaveBeenCalledWith(userID[0], response);
-    expect(mockState.chatbotConsoleMock).toHaveBeenCalledWith(response)
-  })
+    expect(mockState.chatbotConsoleMock).toHaveBeenCalledWith(response);
+  });
 
   it('should respond with an unverified message for input that contains offensive content', () => {
     const userMessageHandler = handleUserMessage(userID[0]);
@@ -85,8 +85,8 @@ describe('Handle User Message', () => {
     expect(mockState.logUserMessageMock).toHaveBeenCalledWith(userID[0], userMessage.invalid[0]);
 
     // Validate chatbot's response
-    const response = `${CHATBOT_MESSAGES.UNVERIFED_MESSAGE_RESPONSE}`
+    const response = `${CHATBOT_MESSAGES.UNVERIFED_MESSAGE_RESPONSE}`;
     expect(mockState.logChatbotResponseMock).toHaveBeenCalledWith(userID[0], response);
-    expect(mockState.chatbotConsoleMock).toHaveBeenCalledWith(response)
-  })
-})
+    expect(mockState.chatbotConsoleMock).toHaveBeenCalledWith(response);
+  });
+});

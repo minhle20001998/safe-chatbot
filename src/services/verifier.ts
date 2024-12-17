@@ -1,4 +1,4 @@
-import natural from 'natural'
+import natural from 'natural';
 import { DISALLOWED_WORDS } from '../constants';
 import { cleanUpInput } from '../helper';
 
@@ -14,11 +14,11 @@ const analyzer = new natural.SentimentAnalyzer('English', natural.PorterStemmer,
  * @returns {boolean} - True if input is allowed, False otherwise.
  */
 function isInputAllowed(input: string): boolean {
-  const tokens = cleanUpInput(input).split(/\s+/)
-  return !tokens.some(token => {
+  const tokens = cleanUpInput(input).split(/\s+/);
+  return !tokens.some((token) => {
     const stemmedToken = stemmer.stem(token);
-    return DISALLOWED_WORDS.some(word => {
-      return stemmedToken === stemmer.stem(word)
+    return DISALLOWED_WORDS.some((word) => {
+      return stemmedToken === stemmer.stem(word);
     });
   });
 }
@@ -29,12 +29,14 @@ function isInputAllowed(input: string): boolean {
  * @returns {boolean} - False if input is allowed, True otherwise.
  */
 function isInputOffensive(input: string): boolean {
-  let totalScore = 0
-  cleanUpInput(input).split(/\s+/).forEach((word) => {
-    const score = analyzer.getSentiment([word])
-    totalScore = totalScore + score
-  })
+  let totalScore = 0;
+  cleanUpInput(input)
+    .split(/\s+/)
+    .forEach((word) => {
+      const score = analyzer.getSentiment([word]);
+      totalScore = totalScore + score;
+    });
   return totalScore < 0;
 }
 
-export { isInputAllowed, isInputOffensive }
+export { isInputAllowed, isInputOffensive };

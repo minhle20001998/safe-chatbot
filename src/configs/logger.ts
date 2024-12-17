@@ -1,12 +1,12 @@
-import * as fs from "fs";
-import path from "path";
+import * as fs from 'fs';
+import path from 'path';
 
 const nodeEnv = process.env.NODE_ENV;
-console.log({ nodeEnv })
+console.log({ nodeEnv });
 
 const isTestEnv = nodeEnv == 'test ';
 
-export const LOG_FILE_PATH = path.join(`${__dirname}/../../`, isTestEnv ? "chatbot_log.test.txt" : "chatbot_log.txt");
+export const LOG_FILE_PATH = path.join(`${__dirname}/../../`, isTestEnv ? 'chatbot_log.test.txt' : 'chatbot_log.txt');
 
 /**
  * Log messages to a file with timestamp.
@@ -38,4 +38,4 @@ function generateChatbotLogEntry(userId: string, response: string, timestamp: st
   return `[${timestamp}] userId: ${userId} | response: ${response}\n`;
 }
 
-export { logUserMessage, logChatbotResponse, generateUserLogEntry, generateChatbotLogEntry }
+export { logUserMessage, logChatbotResponse, generateUserLogEntry, generateChatbotLogEntry };
