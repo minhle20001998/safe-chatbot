@@ -68,6 +68,8 @@ To start the chatbot in development mode with automatic restarts on file changes
 npm run start:dev
 ```
 
+<img width="400px" src="assets/run.png">
+
 ### Production
 
 To build and start the chatbot in production mode:
@@ -92,8 +94,12 @@ To run the unit tests without UI:
 npm run test:report
 ```
 
+<img width="400px" src="assets/unit_tests.png">
+
 To run the unit tests with coverage:
 
 ```bash
 npm run test:cov
 ```
+
+<img width="400px" src="assets/test_coverage.png">
